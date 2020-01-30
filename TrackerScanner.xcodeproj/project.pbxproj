@@ -13,6 +13,10 @@
 		8CB35E5723E3271A0077652F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E5523E3271A0077652F /* Main.storyboard */; };
 		8CB35E5923E3271C0077652F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E5823E3271C0077652F /* Assets.xcassets */; };
 		8CB35E5C23E3271C0077652F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E5A23E3271C0077652F /* LaunchScreen.storyboard */; };
+		8CB35E6B23E327B00077652F /* NSURLProtocol+WKWebViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E6A23E327AF0077652F /* NSURLProtocol+WKWebViewSupport.m */; };
+		8CB35E6E23E32C2C0077652F /* CustomURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */; };
+		8CB35E7023E32DFF0077652F /* ResourceReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */; };
+		8CB35E7223E32EF60077652F /* WebsiteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E7123E32EF60077652F /* WebsiteLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,12 @@
 		8CB35E5823E3271C0077652F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CB35E5B23E3271C0077652F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CB35E5D23E3271C0077652F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CB35E6823E327AF0077652F /* TrackerScanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrackerScanner-Bridging-Header.h"; sourceTree = "<group>"; };
+		8CB35E6923E327AF0077652F /* NSURLProtocol+WKWebViewSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebViewSupport.h"; sourceTree = "<group>"; };
+		8CB35E6A23E327AF0077652F /* NSURLProtocol+WKWebViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebViewSupport.m"; sourceTree = "<group>"; };
+		8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomURLProtocol.swift; sourceTree = "<group>"; };
+		8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceReporter.swift; sourceTree = "<group>"; };
+		8CB35E7123E32EF60077652F /* WebsiteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +67,28 @@
 			isa = PBXGroup;
 			children = (
 				8CB35E4F23E3271A0077652F /* AppDelegate.swift */,
-				8CB35E5123E3271A0077652F /* SceneDelegate.swift */,
-				8CB35E5323E3271A0077652F /* ViewController.swift */,
-				8CB35E5523E3271A0077652F /* Main.storyboard */,
 				8CB35E5823E3271C0077652F /* Assets.xcassets */,
-				8CB35E5A23E3271C0077652F /* LaunchScreen.storyboard */,
+				8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */,
 				8CB35E5D23E3271C0077652F /* Info.plist */,
+				8CB35E5A23E3271C0077652F /* LaunchScreen.storyboard */,
+				8CB35E6C23E327B40077652F /* Lib */,
+				8CB35E5523E3271A0077652F /* Main.storyboard */,
+				8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */,
+				8CB35E5123E3271A0077652F /* SceneDelegate.swift */,
+				8CB35E6823E327AF0077652F /* TrackerScanner-Bridging-Header.h */,
+				8CB35E5323E3271A0077652F /* ViewController.swift */,
+				8CB35E7123E32EF60077652F /* WebsiteLoader.swift */,
 			);
 			path = TrackerScanner;
+			sourceTree = "<group>";
+		};
+		8CB35E6C23E327B40077652F /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				8CB35E6923E327AF0077652F /* NSURLProtocol+WKWebViewSupport.h */,
+				8CB35E6A23E327AF0077652F /* NSURLProtocol+WKWebViewSupport.m */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,6 +123,7 @@
 				TargetAttributes = {
 					8CB35E4B23E3271A0077652F = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -138,8 +163,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB35E6E23E32C2C0077652F /* CustomURLProtocol.swift in Sources */,
+				8CB35E6B23E327B00077652F /* NSURLProtocol+WKWebViewSupport.m in Sources */,
+				8CB35E7023E32DFF0077652F /* ResourceReporter.swift in Sources */,
 				8CB35E5423E3271A0077652F /* ViewController.swift in Sources */,
 				8CB35E5023E3271A0077652F /* AppDelegate.swift in Sources */,
+				8CB35E7223E32EF60077652F /* WebsiteLoader.swift in Sources */,
 				8CB35E5223E3271A0077652F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +313,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KL585M628D;
 				INFOPLIST_FILE = TrackerScanner/Info.plist;
@@ -293,6 +323,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.mackuba.TrackerScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TrackerScanner/TrackerScanner-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -302,6 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KL585M628D;
 				INFOPLIST_FILE = TrackerScanner/Info.plist;
@@ -311,6 +344,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.mackuba.TrackerScanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TrackerScanner/TrackerScanner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
