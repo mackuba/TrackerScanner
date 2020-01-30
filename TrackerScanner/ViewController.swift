@@ -80,6 +80,10 @@ class ViewController: UIViewController {
         }
 
         print("All pages loaded.")
+
+        DispatchQueue.main.async {
+            self.urlLabel.text = "Done"
+        }
     }
 
     func saveResults(_ results: [[String: Any]], to file: URL) {
