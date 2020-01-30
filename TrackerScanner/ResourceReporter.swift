@@ -26,6 +26,8 @@ class ResourceReporter {
 
     func resourceRequestSent(request: URLRequest) {
         let url = request.url!
+        guard url.host != currentPageURL?.host else { return }
+
         resources.append(url)
 
         print("\(resources.count). \(url)")
