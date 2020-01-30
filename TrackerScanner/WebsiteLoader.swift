@@ -11,7 +11,7 @@ import WebKit
 
 private let pageLoadTimeout: TimeInterval = 10.0
 
-class WebsiteLoader: NSObject, WKNavigationDelegate, WKUIDelegate {
+class WebsiteLoader: NSObject, WKNavigationDelegate {
     let webView: WKWebView
     let url: URL
 
@@ -31,7 +31,6 @@ class WebsiteLoader: NSObject, WKNavigationDelegate, WKUIDelegate {
         super.init()
 
         webView.navigationDelegate = self
-        webView.uiDelegate = self
         webView.customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Safari/605.1.15"
     }
 
