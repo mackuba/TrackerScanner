@@ -49,9 +49,6 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         print("did commit")
-
-        timer?.invalidate()
-        timer = nil
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -66,9 +63,6 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print("did fail prv \(error)")
-
-        timer?.invalidate()
-        timer = nil
 
         onFinish?()
         onFinish = nil
