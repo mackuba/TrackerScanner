@@ -19,64 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLProtocol.wk_registerScheme("https")
         URLProtocol.registerClass(CustomURLProtocol.self)
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.runScanner()
-        }
-
         return true
     }
 
-    func runScanner() {
-        let pagesFileURL = Bundle.main.url(forResource: "page_list", withExtension: "txt")!
-        let pagesData = try! String(contentsOf: pagesFileURL)
-        let pages = pagesData
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .components(separatedBy: "\n")
-            .map({ URL(string: $0 )! })
-
-        var results: [[String: Any]] = []
-
-        for url in pages {
-            let dispatchGroup = DispatchGroup()
-            var websiteLoader: WebsiteLoader?
-
-            dispatchGroup.enter()
-
-            DispatchQueue.main.async {
-                let loader = WebsiteLoader(url: url)
-                websiteLoader = loader
-
-                loader.onFinish = {
-                    print("Loading finished")
-                    dispatchGroup.leave()
-                }
-
-                loader.run()
-            }
-
-            dispatchGroup.wait()
-            _ = websiteLoader
-
-            results.append([
-                "page": url.absoluteString,
-                "resources": ResourceReporter.shared.resources.map { $0.absoluteString }
-            ])
-        }
-
-        print("All pages loaded.")
-
-        let json = try! JSONSerialization.data(
-            withJSONObject: results,
-            options: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]
-        )
-
-        let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let outputFile = documentsFolder.appendingPathComponent("results.json")
-
-        try! json.write(to: outputFile)
-
-        print("Saved: \(outputFile)")
-    }
 
     // MARK: UISceneSession Lifecycle
 
