@@ -17,6 +17,7 @@
 		8CB35E6E23E32C2C0077652F /* CustomURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */; };
 		8CB35E7023E32DFF0077652F /* ResourceReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */; };
 		8CB35E7223E32EF60077652F /* WebsiteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E7123E32EF60077652F /* WebsiteLoader.swift */; };
+		8CB35E7423E3486B0077652F /* page_list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E7323E3486B0077652F /* page_list.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomURLProtocol.swift; sourceTree = "<group>"; };
 		8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceReporter.swift; sourceTree = "<group>"; };
 		8CB35E7123E32EF60077652F /* WebsiteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteLoader.swift; sourceTree = "<group>"; };
+		8CB35E7323E3486B0077652F /* page_list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = page_list.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				8CB35E5A23E3271C0077652F /* LaunchScreen.storyboard */,
 				8CB35E6C23E327B40077652F /* Lib */,
 				8CB35E5523E3271A0077652F /* Main.storyboard */,
+				8CB35E7323E3486B0077652F /* page_list.txt */,
 				8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */,
 				8CB35E5123E3271A0077652F /* SceneDelegate.swift */,
 				8CB35E6823E327AF0077652F /* TrackerScanner-Bridging-Header.h */,
@@ -153,6 +156,7 @@
 				8CB35E5C23E3271C0077652F /* LaunchScreen.storyboard in Resources */,
 				8CB35E5923E3271C0077652F /* Assets.xcassets in Resources */,
 				8CB35E5723E3271A0077652F /* Main.storyboard in Resources */,
+				8CB35E7423E3486B0077652F /* page_list.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

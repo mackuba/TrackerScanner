@@ -18,6 +18,8 @@ class WebsiteLoader: NSObject, WKNavigationDelegate, WKUIDelegate {
     var onFinish: (() -> ())?
     var timer: Timer?
 
+    deinit { print("deinit loader") }
+
     init(url: URL) {
         self.url = url
 
