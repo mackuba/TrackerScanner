@@ -13,13 +13,19 @@ class ResourceReporter {
     static let shared = ResourceReporter()
 
     var currentPageURL: URL?
+
     var resources: [URL] = []
+    var resourceSet: Set<URL> = []
+    var resourceCount = 0
 
     private init() {}
 
     func pageStartedLoading(url: URL) {
         currentPageURL = url
+
         resources = []
+        resourceSet = []
+        resourceCount = 0
 
         print("Loading \(url) ...")
     }
@@ -28,8 +34,12 @@ class ResourceReporter {
         let url = request.url!
         guard url.host != currentPageURL?.host else { return }
 
-        resources.append(url)
+        resourceCount += 1
+        print("\(resourceCount). \(url)")
 
-        print("\(resources.count). \(url)")
+        guard !resourceSet.contains(url) else { return }
+
+        resources.append(url)
+        resourceSet.insert(url)
     }
 }
