@@ -10,13 +10,16 @@ import Foundation
 import WebKit
 
 private let pageLoadTimeout: TimeInterval = 10.0
+private let globalTimeout: TimeInterval = 20.0
 
 class WebsiteLoader: NSObject, WKNavigationDelegate {
     let webView: WKWebView
     let url: URL
 
     var onFinish: (() -> ())?
-    var timer: Timer?
+
+    var pageLoadTimer: Timer?
+    var globalTimer: Timer?
 
     deinit { print("deinit loader") }
 
@@ -42,8 +45,8 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     }
 
     @objc func timerFired() {
-        timer?.invalidate()
-        timer = nil
+        resetPageLoadTimer()
+        resetGlobalTimer()
 
         onFinish?()
         onFinish = nil
@@ -51,12 +54,14 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         print("did commit")
+
+        resetPageLoadTimer()
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("did finish")
 
-        timer = Timer.scheduledTimer(timeInterval: pageLoadTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
+        startTimers()
     }
 
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -66,6 +71,9 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         print("did fail prv \(error)")
 
+        resetPageLoadTimer()
+        resetGlobalTimer()
+
         onFinish?()
         onFinish = nil
     }
@@ -73,6 +81,24 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("did fail \(error)")
 
-        timer = Timer.scheduledTimer(timeInterval: pageLoadTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
+        startTimers()
+    }
+
+    func startTimers() {
+        pageLoadTimer = Timer.scheduledTimer(timeInterval: pageLoadTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
+
+        if globalTimer == nil {
+            globalTimer = Timer.scheduledTimer(timeInterval: globalTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
+        }
+    }
+
+    func resetPageLoadTimer() {
+        pageLoadTimer?.invalidate()
+        pageLoadTimer = nil
+    }
+
+    func resetGlobalTimer() {
+        globalTimer?.invalidate()
+        globalTimer = nil
     }
 }
