@@ -23,11 +23,16 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
 
     deinit { print("deinit loader") }
 
-    init(url: URL) {
+    init(url: URL, ruleList: WKContentRuleList? = nil) {
         self.url = url
 
         let config = WKWebViewConfiguration()
         config.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+
+        if let ruleList = ruleList {
+            config.userContentController.add(ruleList)
+        }
+
         let webView = WKWebView(frame: CGRect.zero, configuration: config)
         self.webView = webView
 

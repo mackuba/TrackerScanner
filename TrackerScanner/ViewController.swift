@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import WebKit
+
+private let blocklistId = "eu.mackuba.TrackerScanner.blocklist"
 
 class ViewController: UIViewController {
 
@@ -14,16 +17,47 @@ class ViewController: UIViewController {
     @IBOutlet var progressBar: UIProgressView!
     @IBOutlet var progressLabel: UILabel!
 
+    var useBlocklist = false
+    var ruleList: WKContentRuleList?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        urlLabel.text = ""
         progressBar.progress = 0.0
         progressLabel.text = ""
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.runScanner()
+        if useBlocklist {
+            urlLabel.text = "Compiling blocklist…"
+
+            installBlocklist(callback: { ruleList, error in
+                guard ruleList != nil, error == nil else {
+                    fatalError("Error building blocklist: \(String(describing: error))")
+                }
+
+                self.ruleList = ruleList
+
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.runScanner()
+                }
+            })
+        } else {
+            urlLabel.text = ""
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.runScanner()
+            }
         }
+    }
+
+    func installBlocklist(callback: ((WKContentRuleList?, Error?) -> ())?) {
+        let blocklistURL = Bundle.main.url(forResource: "blocklist", withExtension: "json")!
+        let blocklistJSON = try! String(contentsOf: blocklistURL)
+
+        WKContentRuleListStore.default()?.compileContentRuleList(
+            forIdentifier: blocklistId,
+            encodedContentRuleList: blocklistJSON,
+            completionHandler: callback
+        )
     }
 
     func runScanner() {
@@ -54,7 +88,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.urlLabel.text = url.absoluteString
 
-                let loader = WebsiteLoader(url: url)
+                let loader = WebsiteLoader(url: url, ruleList: self.ruleList)
                 websiteLoader = loader
 
                 loader.onFinish = {

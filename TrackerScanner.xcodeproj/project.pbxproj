@@ -19,6 +19,7 @@
 		8CB35E7223E32EF60077652F /* WebsiteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E7123E32EF60077652F /* WebsiteLoader.swift */; };
 		8CB35E7423E3486B0077652F /* page_list.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E7323E3486B0077652F /* page_list.txt */; };
 		8CB35E7623E46D150077652F /* SessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB35E7523E46D150077652F /* SessionHandler.swift */; };
+		8CB35E7823E4A2C30077652F /* blocklist.json in Resources */ = {isa = PBXBuildFile; fileRef = 8CB35E7723E4A2C30077652F /* blocklist.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		8CB35E7123E32EF60077652F /* WebsiteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteLoader.swift; sourceTree = "<group>"; };
 		8CB35E7323E3486B0077652F /* page_list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = page_list.txt; sourceTree = "<group>"; };
 		8CB35E7523E46D150077652F /* SessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHandler.swift; sourceTree = "<group>"; };
+		8CB35E7723E4A2C30077652F /* blocklist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blocklist.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				8CB35E4F23E3271A0077652F /* AppDelegate.swift */,
 				8CB35E5823E3271C0077652F /* Assets.xcassets */,
+				8CB35E7723E4A2C30077652F /* blocklist.json */,
 				8CB35E6D23E32C2C0077652F /* CustomURLProtocol.swift */,
 				8CB35E5D23E3271C0077652F /* Info.plist */,
 				8CB35E5A23E3271C0077652F /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 				8CB35E5C23E3271C0077652F /* LaunchScreen.storyboard in Resources */,
 				8CB35E5923E3271C0077652F /* Assets.xcassets in Resources */,
 				8CB35E5723E3271A0077652F /* Main.storyboard in Resources */,
+				8CB35E7823E4A2C30077652F /* blocklist.json in Resources */,
 				8CB35E7423E3486B0077652F /* page_list.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
