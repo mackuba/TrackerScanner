@@ -35,7 +35,9 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     }
 
     func run() {
+        SessionHandler.shared.resetSession()
         ResourceReporter.shared.pageStartedLoading(url: url)
+
         webView.load(URLRequest(url: url))
     }
 
