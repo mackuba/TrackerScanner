@@ -40,6 +40,7 @@
 		8CB35E7323E3486B0077652F /* page_list.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = page_list.txt; sourceTree = "<group>"; };
 		8CB35E7523E46D150077652F /* SessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHandler.swift; sourceTree = "<group>"; };
 		8CB35E7723E4A2C30077652F /* blocklist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blocklist.json; sourceTree = "<group>"; };
+		8CB35E7923E4ABAF0077652F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +82,7 @@
 				8CB35E6C23E327B40077652F /* Lib */,
 				8CB35E5523E3271A0077652F /* Main.storyboard */,
 				8CB35E7323E3486B0077652F /* page_list.txt */,
+				8CB35E7923E4ABAF0077652F /* README.md */,
 				8CB35E6F23E32DFF0077652F /* ResourceReporter.swift */,
 				8CB35E5123E3271A0077652F /* SceneDelegate.swift */,
 				8CB35E7523E46D150077652F /* SessionHandler.swift */,
