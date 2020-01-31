@@ -3,3 +3,4 @@
 *.xccheckout
 blocklist.json
 page_list.txt
+/output.*
