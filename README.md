@@ -14,6 +14,8 @@ The tool (in the form of an iOS app, because that was the easiest way to get it 
 
 If you want, you can provide a WebKit content blocker blocklist and only record resources that haven't been caught by the blocklist - in this case, switch the `useBlocklist` property in `ViewController` to `true`. 
 
+The `Scripts` directory contains some scripts in Ruby that can help you extract some statistics from results files.
+
 
 ### Credits
 

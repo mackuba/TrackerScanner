@@ -4,7 +4,7 @@ require 'set'
 MIN_SITES = 5
 
 if ARGV[0].to_s.empty?
-    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json>"
+    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json> > output.json"
     exit 1
 end
 

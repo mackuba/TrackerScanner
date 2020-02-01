@@ -2,7 +2,7 @@ require 'csv'
 require 'json'
 
 if ARGV[0].to_s.empty?
-    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json>"
+    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json> > output.csv"
     exit 1
 end
 
