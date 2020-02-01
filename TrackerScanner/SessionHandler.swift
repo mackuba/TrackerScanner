@@ -15,20 +15,25 @@ class SessionHandler: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLS
     private var session: URLSession!
     private var handlers: [URLSessionTask: CustomURLProtocol] = [:]
 
+    private var queue = DispatchQueue(label: "SessionHandler.queue", qos: .userInitiated)
+
     func resetSession() {
         let config = URLSessionConfiguration.ephemeral
         config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
-        session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
-        handlers = [:]
+        queue.sync {
+            session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+            handlers = [:]
+        }
     }
 
     func runRequest(_ request: URLRequest, withHandler handler: CustomURLProtocol) {
         let task = session.dataTask(with: request)
 
-        handlers[task] = handler
-
-        task.resume()
+        queue.sync {
+            handlers[task] = handler
+            task.resume()
+        }
     }
 
     func urlSession(
@@ -37,16 +42,20 @@ class SessionHandler: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLS
         didReceive response: URLResponse,
         completionHandler: @escaping (URLSession.ResponseDisposition) -> Void)
     {
-        if let handler = handlers[dataTask] {
-            handler.client!.urlProtocol(handler, didReceive: response, cacheStoragePolicy: .notAllowed)
-        }
+        queue.async {
+            if let handler = self.handlers[dataTask] {
+                handler.client!.urlProtocol(handler, didReceive: response, cacheStoragePolicy: .notAllowed)
+            }
 
-        completionHandler(.allow)
+            completionHandler(.allow)
+        }
     }
 
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        if let handler = handlers[dataTask] {
-            handler.client!.urlProtocol(handler, didLoad: data)
+        queue.async {
+            if let handler = self.handlers[dataTask] {
+                handler.client!.urlProtocol(handler, didLoad: data)
+            }
         }
     }
 
@@ -62,11 +71,13 @@ class SessionHandler: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLS
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let handler = handlers[task] {
-            if let error = error {
-                handler.client!.urlProtocol(handler, didFailWithError: error)
-            } else {
-                handler.client!.urlProtocolDidFinishLoading(handler)
+        queue.async {
+            if let handler = self.handlers[task] {
+                if let error = error {
+                    handler.client!.urlProtocol(handler, didFailWithError: error)
+                } else {
+                    handler.client!.urlProtocolDidFinishLoading(handler)
+                }
             }
         }
     }
