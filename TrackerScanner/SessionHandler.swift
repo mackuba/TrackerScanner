@@ -66,6 +66,7 @@ class SessionHandler: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLS
         newRequest request: URLRequest,
         completionHandler: @escaping (URLRequest?) -> Void)
     {
+        print("from :: \(task.originalRequest!.url!)")
         print("redirect -> \(request.url!)")
         completionHandler(request)
     }
