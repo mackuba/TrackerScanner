@@ -3,4 +3,5 @@
 *.xccheckout
 blocklist.json
 page_list.txt
-/output.*
+/*.csv
+/*.json
