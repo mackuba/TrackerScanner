@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 
 private let pageLoadTimeout: TimeInterval = 10.0
-private let globalTimeout: TimeInterval = 20.0
+private let globalTimeout: TimeInterval = 25.0
 
 class WebsiteLoader: NSObject, WKNavigationDelegate {
     let webView: WKWebView
@@ -46,12 +46,16 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
         SessionHandler.shared.resetSession()
         ResourceReporter.shared.pageStartedLoading(url: url)
 
+        globalTimer = Timer.scheduledTimer(timeInterval: globalTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
+
         webView.load(URLRequest(url: url))
     }
 
     @objc func timerFired() {
         resetPageLoadTimer()
         resetGlobalTimer()
+
+        webView.stopLoading()
 
         onFinish?()
         onFinish = nil
@@ -66,7 +70,7 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("did finish")
 
-        startTimers()
+        startPageLoadTimer()
     }
 
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -86,15 +90,11 @@ class WebsiteLoader: NSObject, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("did fail \(error)")
 
-        startTimers()
+        startPageLoadTimer()
     }
 
-    func startTimers() {
+    func startPageLoadTimer() {
         pageLoadTimer = Timer.scheduledTimer(timeInterval: pageLoadTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
-
-        if globalTimer == nil {
-            globalTimer = Timer.scheduledTimer(timeInterval: globalTimeout, target: self, selector: #selector(timerFired), userInfo: nil, repeats: false)
-        }
     }
 
     func resetPageLoadTimer() {
