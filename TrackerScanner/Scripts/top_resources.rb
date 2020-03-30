@@ -6,17 +6,20 @@ require 'set'
 MIN_SITES = 5
 
 if ARGV[0].to_s.empty?
-    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json> [-h] [-x ...] > output.json"
-    $stderr.puts "   or: #{$PROGRAM_NAME} <results.json> [-h] [-x ...] -c > output.csv"
+    $stderr.puts "Usage: #{$PROGRAM_NAME} <results.json> [-h] [-d/-D] [-x ...] > output.json"
+    $stderr.puts "   or: #{$PROGRAM_NAME} <results.json> [-h] [-d/-D] [-x ...] -c > output.csv"
     exit 1
 end
 
 format = :json
+by_domain = false
 normalize_http = false
 exclusions = []
 
 OptionParser.new do |opts|
     opts.on("-c") { |v| format = :csv }
+    opts.on("-d") { |v| by_domain = true }
+    opts.on("-D") { |v| by_domain = :top }
     opts.on("-h") { |v| normalize_http = true }
     opts.on("-xLIST") { |v| exclusions = v.split(',') }
 end.parse!
@@ -32,6 +35,13 @@ list.each do |record|
 
         url = url.gsub(/#.*/, '').gsub(/\?.*/, '')
         url = url.gsub(/^http:/, 'https:') if normalize_http
+
+        if by_domain == :top
+          url = url.split('/')[2].split('.').reverse[0..1].reverse.join('.')
+        elsif by_domain
+          url = url.split('/')[2]
+        end
+
         resources[url] ||= Set.new
         resources[url] << page_host
     end
