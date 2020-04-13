@@ -21,7 +21,7 @@ OptionParser.new do |opts|
     opts.on("-d") { |v| by_domain = true }
     opts.on("-D") { |v| by_domain = :top }
     opts.on("-h") { |v| normalize_http = true }
-    opts.on("-xLIST") { |v| exclusions = v.split(',') }
+    opts.on("-xLIST") { |v| exclusions += v.split(',') }
 end.parse!
 
 list = JSON.parse(File.read(ARGV[0]))
